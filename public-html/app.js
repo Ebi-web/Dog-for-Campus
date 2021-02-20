@@ -1,0 +1,5 @@
+Vue.createApp(
+    {
+
+    }
+).mount("#app")

@@ -5,5 +5,5 @@ services:
     ports:
       - 80:80
     privileged: true
-    # volumes:
-    #   - ./public-html:/public-html
+    volumes:
+      - ./public-html/:/usr/local/apache2/htdocs/
