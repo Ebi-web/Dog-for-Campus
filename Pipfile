@@ -1,0 +1,46 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+appdirs = "==1.4.4"
+autopep8 = "==1.5.4"
+beautifulsoup4 = "==4.9.3"
+certifi = "==2020.12.5"
+chardet = "==4.0.0"
+click = "==7.1.2"
+cssselect = "==1.1.0"
+distlib = "==0.3.1"
+feedfinder2 = "==0.0.4"
+feedparser = "==6.0.2"
+filelock = "==3.0.12"
+idna = "==2.10"
+jieba3k = "==0.35.1"
+joblib = "==1.0.0"
+lxml = "==4.6.2"
+newspaper3k = "==0.2.8"
+nltk = "==3.5"
+pipenv = "==2020.11.15"
+pycodestyle = "==2.6.0"
+python-dateutil = "==2.8.1"
+regex = "==2020.11.13"
+requests = "==2.25.1"
+requests-file = "==1.5.1"
+sgmllib3k = "==1.0.0"
+six = "==1.15.0"
+soupsieve = "==2.1"
+tinysegmenter = "==0.3"
+tldextract = "==3.1.0"
+toml = "==0.10.2"
+tqdm = "==4.56.0"
+urllib3 = "==1.26.3"
+virtualenv = "==20.4.2"
+virtualenv-clone = "==0.5.4"
+Pillow = "==8.1.0"
+PyYAML = "==5.4.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
