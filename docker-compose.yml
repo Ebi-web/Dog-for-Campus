@@ -6,4 +6,9 @@ services:
       - 80:80
     privileged: true
     volumes:
-      - ./public-html/:/usr/local/apache2/htdocs/
+      - ./public-html/:/var/www/html/
+  composer:
+      image: composer
+      command: "composer install"
+      volumes:
+        - ./:/app
