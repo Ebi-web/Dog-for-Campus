@@ -1,10 +1,12 @@
-console.log("動いた")
-const Counter = {
-    data: function () {
+Vue.createApp({
+    data() {
         return {
-            counter: 0
+            info: null
         }
+    },
+    mounted() {
+        axios
+            .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+            .then(response => (this.info = response))
     }
-}
-
-Vue.createApp(Counter).mount('#counter')
+}).mount("#app")

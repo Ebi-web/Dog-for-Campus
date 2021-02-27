@@ -1,3 +1,6 @@
+<?php require_once "./backend/doScraping.php";
+echo "<div id='obtainedDom'>" . $dom . "</div>";
+?>
 <!DOCTYPE html>
 <html>
 
@@ -25,8 +28,7 @@
                 <ul>
                     <li v-for="category in categories" :key="category">
                         <label :for="'category-' + category">
-                            <input v-model="todoCategories" type="checkbox" :id="'category-' + category"
-                                :value="category" form="form-todo" />
+                            <input v-model="todoCategories" type="checkbox" :id="'category-' + category" :value="category" form="form-todo" />
                             {{ category }}
                         </label>
                     </li>
@@ -54,8 +56,7 @@
                     </select>
                 </div>
                 <div class="todo-search-item">
-                    <label for="todo-search-done">終了したものを非表示にする<input v-model="hideDoneTodo" type="checkbox"
-                            id="todo-search-done" /></label>
+                    <label for="todo-search-done">終了したものを非表示にする<input v-model="hideDoneTodo" type="checkbox" id="todo-search-done" /></label>
                 </div>
                 <div class="todo-search-item">
                     <select v-model="order">
@@ -98,7 +99,7 @@
 
 <script>
     Vue.createApp({
-        data: function () {
+        data: function() {
             return {
                 todoTitle: '',
                 todoDescription: '',
@@ -113,45 +114,45 @@
             }
         },
         computed: {
-            canCreateTodo: function () {
+            canCreateTodo: function() {
                 return this.todoTitle !== ''
             },
-            canCreateCategory: function () {
+            canCreateCategory: function() {
                 return this.categoryName !== '' && !this.existsCategory
             },
-            existsCategory: function () {
+            existsCategory: function() {
                 const categoryName = this.categoryName
 
                 return this.categories.indexOf(categoryName) !== -1
             },
-            hasTodos: function () {
+            hasTodos: function() {
                 return this.todos.length > 0
             },
-            resultTodos: function () {
+            resultTodos: function() {
                 const selectedCategory = this.selectedCategory
                 const hideDoneTodo = this.hideDoneTodo
                 const order = this.order
                 const searchWord = this.searchWord
                 return this.todos
-                    .filter(function (todo) {
+                    .filter(function(todo) {
                         return (
                             selectedCategory === '' ||
                             todo.categories.indexOf(selectedCategory) !== -1
                         )
                     })
-                    .filter(function (todo) {
+                    .filter(function(todo) {
                         if (hideDoneTodo) {
                             return !todo.done
                         }
                         return true
                     })
-                    .filter(function (todo) {
+                    .filter(function(todo) {
                         return (
                             todo.title.indexOf(searchWord) !== -1 ||
                             todo.description.indexOf(searchWord) !== -1
                         )
                     })
-                    .sort(function (a, b) {
+                    .sort(function(a, b) {
                         if (order === 'asc') {
                             return a.dateTime - b.dateTime
                         }
@@ -161,20 +162,20 @@
         },
         watch: {
             todos: {
-                handler: function (next) {
+                handler: function(next) {
                     window.localStorage.setItem('todos', JSON.stringify(next))
                 },
                 deep: true,
             },
             categories: {
-                handler: function (next) {
+                handler: function(next) {
                     window.localStorage.setItem('categories', JSON.stringify(next))
                 },
                 deep: true,
             },
         },
         methods: {
-            createTodo: function () {
+            createTodo: function() {
                 if (!this.canCreateTodo) {
                     return
                 }
@@ -192,7 +193,7 @@
                 this.todoDescription = ''
                 this.todoCategories = []
             },
-            createCategory: function () {
+            createCategory: function() {
                 if (!this.canCreateCategory) {
                     return
                 }
@@ -202,7 +203,7 @@
                 this.categoryName = ''
             },
         },
-        created: function () {
+        created: function() {
             const todos = window.localStorage.getItem('todos')
             const categories = window.localStorage.getItem('categories')
 
@@ -215,8 +216,6 @@
             }
         },
     }).mount('#app')
-
-
 </script>
 </body>
 

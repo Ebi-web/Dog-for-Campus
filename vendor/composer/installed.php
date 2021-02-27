@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4b70e827b914c7ca843991d08c86eeae738236d1',
+    'reference' => '6950a30ee5a3991845f3d117fbd8f68cc39e2f5c',
     'name' => 'conam/dog-for-campus',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4b70e827b914c7ca843991d08c86eeae738236d1',
+      'reference' => '6950a30ee5a3991845f3d117fbd8f68cc39e2f5c',
     ),
     'electrolinux/phpquery' => 
     array (

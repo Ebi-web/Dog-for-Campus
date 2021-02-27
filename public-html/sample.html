@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-
-<head>
-    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
-</head>
-
-<body>
-    <div id="counter">
-        Counter: {{ counter }}
-    </div>
-    <script>
-        console.log("aaa")
-        const Counter = {
-            data: function () {
-                return {
-                    counter: 0
-                }
+<script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+<div id="app">
+    {{ info }}
+</div>
+<script>
+    Vue.createApp({
+        data() {
+            return {
+                info: null
             }
+        },
+        mounted() {
+            axios
+                .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+                .then(response => (this.info = response))
         }
-
-        Vue.createApp(Counter).mount('#counter')
-    </script>
-</body>
+    }).mount("#app")
+</script>
