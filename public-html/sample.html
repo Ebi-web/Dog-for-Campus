@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="counter">
+        Counter: {{ counter }}
+    </div>
+    <script>
+        console.log("aaa")
+        const Counter = {
+            data: function () {
+                return {
+                    counter: 0
+                }
+            }
+        }
+
+        Vue.createApp(Counter).mount('#counter')
+    </script>
+</body>
