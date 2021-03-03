@@ -7,9 +7,3 @@ services:
     privileged: true
     volumes:
       - ./public-html/:/var/www/html/
-      - ./vendor/:/var/www/html/vendor/
-  composer:
-      image: composer
-      command: "composer install"
-      volumes:
-        - ./:/app

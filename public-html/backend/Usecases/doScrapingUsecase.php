@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\Usecases\doScrapingUsecase;
+namespace backend\Usecases;
 
 class doScrapingUsecase
 {

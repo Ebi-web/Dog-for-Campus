@@ -2,8 +2,8 @@
 
 namespace backend;
 
-use backend\eachHps\unvHp\unvHp;
-
 require_once "./vendor/autoload.php";
+
+use backend\eachHps\unvHp;
 
 var_dump(unvHp::domOfUnvHp());

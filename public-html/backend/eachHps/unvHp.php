@@ -1,8 +1,8 @@
 <?php
 
-namespace backend\eachHps\unvHp;
+namespace backend\eachHps;
 
-use backend\Usecases\doScrapingUsecase\doScrapingUsecase;
+use backend\Usecases\doScrapingUsecase;
 
 class unvHp
 {
