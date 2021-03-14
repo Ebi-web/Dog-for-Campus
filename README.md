@@ -3,9 +3,37 @@
 Dog for Campusに任せて時間とストレスを節約しましょう。監視するサイトを登録しておくだけで，更新された情報を
 まとめておいてくれます。
 
-対応予定の大学：東北大学
+対応予定の大学：東北大学(理学部)
 
-使用技術：
-フロントエンド: Vue.js 3.0.0
-バックエンド: PHP8
+# 環境構築
+
+本プロジェクトのルートディレクトリで以下を実行
+```Shell
+docker-compose up --build -d
+```
+
+何かコマンドを実行する時:
+```Shell
+docker-compose exec web bash
+```
+
+# NOTE
+使用技術(予定含む)：
+フロントエンド
+・Vue.js 3.0.0
+・Nuxt.js
+・Vuetify.js
+
+バックエンド
+・PHP8
+
+インフラ
+・Firebase(認証周り)
+・apache
+
+使用ライブラリ(予定含む):
+Guzzle : HTTP クライアント
+PHP DOM Wrapper : DOM 操作
+Chrome PHP : ヘッドレス Chrome 操作
+WorkerPool : 並列処理
 
