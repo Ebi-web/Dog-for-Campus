@@ -4,8 +4,8 @@ namespace backend\eachHps\generalEducation;
 
 class generalEducation
 {
-    private $prefixInTargetUrl = "http://www2.he.tohoku.ac.jp/zengaku/";
-    private $targetDirectoriesList = [
+    private const prefixInTargetUrl = "http://www2.he.tohoku.ac.jp/zengaku/";
+    private const targetDirectoriesList = [
         "zengaku_info_g.html",
         "zengaku_annai.html",
         "zengaku_itiran.html",
@@ -14,7 +14,7 @@ class generalEducation
     ];
     public static function domOfgeneralEducation()
     {
-        $prefixInTargetUrl = self::$prefixInTargetUrl;
-        $targetDirectoriesList = self::$targetDirectoriesList;
+        $prefixInTargetUrl = self::prefixInTargetUrl;
+        $targetDirectoriesList = self::targetDirectoriesList;
     }
 }

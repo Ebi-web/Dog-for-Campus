@@ -20,20 +20,22 @@ docker-compose exec web bash
 # NOTE
 使用技術(予定含む)：
 フロントエンド
-・Vue.js 3.0.0
-・Nuxt.js
-・Vuetify.js
+・Svelte
+・Svelte Materialify
+・HTML5,CSS3,JS
 
 バックエンド
 ・PHP8
+・MySQL
 
 インフラ
 ・Firebase(認証周り)
 ・apache
+・AWS Route53
+・AWS ACM
 
 使用ライブラリ(予定含む):
 Guzzle : HTTP クライアント
 PHP DOM Wrapper : DOM 操作
 Chrome PHP : ヘッドレス Chrome 操作
 WorkerPool : 並列処理
-
