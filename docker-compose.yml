@@ -1,9 +1,0 @@
-services:
-  web:
-    container_name: web
-    build: ./
-    ports:
-      - 80:80
-    privileged: true
-    volumes:
-      - ./public-html/:/var/www/html/
