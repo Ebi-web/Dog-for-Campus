@@ -11,7 +11,7 @@ CAMPUS-DOGに任せて時間とストレスを節約しましょう。監視す�
 ・HTML5,CSS3,JS
 
 バックエンド
-・PHP7, Laravel7.x
+・PHP7, Laravel8
 ・MySQL
 
 インフラ
