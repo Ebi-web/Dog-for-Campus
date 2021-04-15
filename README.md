@@ -25,3 +25,4 @@ Guzzle : HTTP クライアント
 PHP DOM Wrapper : DOM 操作
 Chrome PHP : ヘッドレス Chrome 操作
 WorkerPool : 並列処理
+Laratrust : 権限管理
