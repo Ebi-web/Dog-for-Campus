@@ -1,6 +1,6 @@
 <img src='https://www.tohoku.ac.jp/japanese/share/img/logo_header.png'>
 
-# Dog-for-Campus
+# CAMPUS-DOG
 大学からのお知らせを見落としてた！大学関連のホームページがいくつもあって見に行くの面倒！
 CAMPUS-DOGに任せて時間とストレスを節約しましょう。監視する大学関連サイトを登録しておくだけで，更新された情報を
 まとめておいてくれます。
