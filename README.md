@@ -9,26 +9,12 @@ CAMPUS-DOGに任せて時間とストレスを節約しましょう。監視す�
 
 # 使用技術
 
-フロントエンド
-- Vue.js
-- HTML5
-- CSS3
-- JS
-
-バックエンド
-- PHP7
-- Laravel8
-- MySQL
+フロントエンド・バックエンド
+- Python3.8.8
+- streamlit
 
 インフラ
-- apache
-- Heroku
-
-使用ライブラリ(予定含む):
-- Guzzle : HTTP クライアント
-- PHP DOM Wrapper : DOM 操作
-- Chrome PHP : ヘッドレス Chrome 操作
-- WorkerPool : 並列処理
+- AWS Lambda (またはBeanstalk)
 
 # NOTE
 
