@@ -1,43 +1,245 @@
 # -*- coding: utf-8 -*-
 
+import re
 from bs4 import BeautifulSoup
-import bs4
 import requests
-import time
-import math
+from datetime import date, datetime
+
+
+def getCurrentDate():
+    return datetime.now().strftime("%Y%m%d")
 
 
 def getCurrentYear():
-    START_OF_TIME_MODULE = 1970
-    SECONDS_PER_A_YEAR = 31536000
-    currentYear = str(
-        math.floor(START_OF_TIME_MODULE + (time.time() / SECONDS_PER_A_YEAR))
-    )
+    currentYear = datetime.now().year
     return currentYear
 
 
 def htmlOfNewsOfHomePage():
     urlToNewsOfHomePage = (
-        "https://www.tohoku.ac.jp/japanese/" + getCurrentYear() + "/cate_news/"
+        "https://www.tohoku.ac.jp/japanese/" + str(getCurrentYear()) + "/cate_news/"
     )
     responseFromNewsOfHomePage = requests.get(urlToNewsOfHomePage)
     soup = BeautifulSoup(responseFromNewsOfHomePage.content, "html.parser")
-    return soup
+    wholeNewsDivTag = soup.find("div", {"class": "tab-content"})
+    return wholeNewsDivTag
 
 
-def htmlOfEventsOfHomePage():
+def liTagsOfEventsOfHomePageFromToday():
     urlToEventsOfHomePage = (
-        "https://www.tohoku.ac.jp/japanese/" + getCurrentYear() + "/cate_event/"
+        "https://www.tohoku.ac.jp/japanese/" + str(getCurrentYear()) + "/cate_event/"
     )
     responseFromEventsOfHomePage = requests.get(urlToEventsOfHomePage)
     soup = BeautifulSoup(responseFromEventsOfHomePage.content, "html.parser")
-    return soup
+    eventsInAYear = soup.find("div", {"class": "tab-content"}).find_all(
+        "div", {"class": "tab-pane"}
+    )
+    eventsFromTodayLiTags = []
+    currentMonthAndDay = int(getCurrentDate()[4:8])
+    for eventsInAMonth in eventsInAYear:
+        liTags = eventsInAMonth.find_all("li")
+        for liTag in liTags:
+            monthAndDay = liTag.find("div", {"class": "date"}).text
+            monthAndDay = int(monthAndDay[0:2] + monthAndDay[3:5])
+            if currentMonthAndDay <= monthAndDay:
+                eventsFromTodayLiTags.append(liTag)
+    return eventsFromTodayLiTags
+
+
+def htmlOfScienceFacultyForCurrentStudents():
+    url = "https://www.sci.tohoku.ac.jp/student/post.html"
+    responseFromThePage = requests.get(url)
+    soup = BeautifulSoup(responseFromThePage.content, "html.parser")
+    emergencies = soup.find("div", {"id": "emg_re"})
+    updatedNotices = soup.find("div", {"class": "pagebody"})
+    returningHtmls = {"emergencies": emergencies, "updateNoticies": updatedNotices}
+    return returningHtmls
+
+
+def liTagsOfSeminarsOfMathFacultyFromToday():
+    url = "http://www.math.tohoku.ac.jp/research/seminar.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    seminarLiTags = soup.find_all("li", {"id": True})
+    liTagsSeminarsFromToday = []
+    currentDate = int(getCurrentDate())
+    for seminarLiTag in seminarLiTags:
+        dateOfSeminar = int(seminarLiTag["id"][:8])
+        if currentDate <= dateOfSeminar:
+            liTagsSeminarsFromToday.append(seminarLiTag)
+    return liTagsSeminarsFromToday
+
+
+def liTagsOfIntensiveLectureOfMathFaclutyFromToday():
+    url = "http://www.math.tohoku.ac.jp/research/intensive.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    intensiveLecturesLiTags = soup.find_all("li", {"id": True})
+    liTagsIntensiveLecturesFromToday = []
+    for intensiveLecturesLiTag in intensiveLecturesLiTags:
+        dateOfIntensiveLecture = int(intensiveLecturesLiTag["id"][:8])
+        if currentDate <= dateOfIntensiveLecture:
+            liTagsIntensiveLecturesFromToday.append(intensiveLecturesLiTag)
+    return liTagsIntensiveLecturesFromToday
+
+
+def liTagsOfColloquiumOfMathFaclutyFromToday():
+    url = "http://www.math.tohoku.ac.jp/research/colloquium.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    colloquiumLiTags = soup.find_all("li", {"id": True})
+    liTagsColloquiumFromToday = []
+    for colloquiumLiTag in colloquiumLiTags:
+        dateOfColloquium = int(colloquiumLiTag["id"][:8])
+        if currentDate <= dateOfColloquium:
+            liTagsColloquiumFromToday.append(colloquiumLiTag)
+    return liTagsColloquiumFromToday
+
+
+def liTagsOfMeetingOfMathFaclutyFromToday():
+    url = "http://www.math.tohoku.ac.jp/research/meeting.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    meetingLiTags = soup.find_all("li", {"id": True})
+    liTagsMeetingFromToday = []
+    for meetingLiTag in meetingLiTags:
+        dateOfMeeting = int(meetingLiTag["id"][:8])
+        if currentDate <= dateOfMeeting:
+            liTagsMeetingFromToday.append(meetingLiTag)
+    return liTagsMeetingFromToday
+
+
+def liTagsOfNoticeOfPhysicsFaclutyFromToday():
+    url = "http://www.phys.tohoku.ac.jp/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    noticeLiTags = soup.find_all("li", {"class": "info_jp clearfix"})
+    return noticeLiTags
+
+
+def liTagsOfEventsOfPhysicsFaclutyFromToday():
+    url = "http://www.phys.tohoku.ac.jp/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    eventLiTags = soup.find_all("li", {"class": "event_jp clearfix"})
+    return eventLiTags
+
+
+def liTagsOfEventsOfPhysicsFaclutyForFirstSecond():
+    url = "http://www.phys.tohoku.ac.jp/event-information/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    eventLiTags = soup.find("div", {"id": "evtabs-3"}).find_all("li")
+    return eventLiTags
+
+
+def liTagsOfEventsOfPhysicsFaclutyForThirdFourth():
+    url = "http://www.phys.tohoku.ac.jp/event-information/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    eventLiTags = soup.find("div", {"id": "evtabs-4"}).find_all("li")
+    return eventLiTags
+
+
+def liTagsOfEventsOfPhysicsFaclutyForGraduates():
+    url = "http://www.phys.tohoku.ac.jp/event-information/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    eventLiTags = soup.find("div", {"id": "evtabs-5"}).find_all("li")
+    return eventLiTags
+
+
+def liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates():
+    url = "http://www.phys.tohoku.ac.jp/event-information/"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    eventLiTags = soup.find("div", {"id": "evtabs-2"}).find_all("li")
+    return eventLiTags
+
+
+def liTagsOfImportantsOfChemistryFacluty():
+    url = "http://www.chem.tohoku.ac.jp/index.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    importantsLiTags = soup.find("div", {"class": "info_inner"}).find_all("li")
+    return importantsLiTags
+
+
+def liTagsOfAdmissionsOfChemistryFacluty():
+    url = "http://www.chem.tohoku.ac.jp/entrance/admissions/index.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    currentDate = int(getCurrentDate())
+    admissionLiTags = soup.find("div", {"class": "admissions"}).find_all("li")
+    return admissionLiTags
+
+
+def ddTagsOfExternalInformationOfGeoscienceFacluty():
+    url = "http://www.es.tohoku.ac.jp/JP/information/index.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    informationLiTags = soup.find("div", {"id": "sectionInformation"}).find_all("dd")
+    return informationLiTags
+
+
+def liTagsOfNewsOfEarthPhysicsMajor():
+    url = "http://www.gp.tohoku.ac.jp/information/news.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    newsLiTags = soup.find("section", {"class": "info-list"}).find_all("li")
+    returningNewsLiTags = []
+    for newsLiTag in newsLiTags:
+        newsLiTag.find("script").extract()
+        returningNewsLiTags.append(newsLiTag)
+    return returningNewsLiTags
+
+
+def liTagsOfInternalInfoOfEarthPhysicsMajor():
+    url = "http://www.gp.tohoku.ac.jp/information/internal.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    internalInfoLiTags = soup.find("section", {"class": "info-list"}).find_all("li")
+    returningInfoLiTags = []
+    for internalInfoLiTag in internalInfoLiTags:
+        internalInfoLiTag.find("script").extract()
+        returningInfoLiTags.append(internalInfoLiTag)
+    return returningInfoLiTags
+
+
+def articleTagsOfEntranceBriefingOfEarthPhysicsMajor():
+    url = "http://www.gp.tohoku.ac.jp/entrance-exams/entrance-exams-briefing.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    returningArticleTags = []
+    briefingArticleTags = soup.find_all("article")
+    commentPattern = re.compile("<!--.*-->", re.DOTALL)
+    for briefingArticleTag in briefingArticleTags:
+        comments = re.findall(commentPattern, str(briefingArticleTag))
+        return comments
+        for comment in comments:
+            # comment = BeautifulSoup(comments, "html.parser")
+            return comment
+            comment.extract()
+    return returningArticleTags
 
 
 def main():
+    print(articleTagsOfEntranceBriefingOfEarthPhysicsMajor())
     return {
-        "htmlOfEventsOfHomePage": htmlOfEventsOfHomePage(),
+        "liTagsOfEventsOfHomePageFromToday": liTagsOfEventsOfHomePageFromToday(),
         "htmlOfNewsOfHomePage": htmlOfNewsOfHomePage(),
+        "htmlOfScienceFacultyForCurrentStudents": htmlOfScienceFacultyForCurrentStudents(),
+        "liTagsOfSeminarsOfMathFacultyFromToday": liTagsOfSeminarsOfMathFacultyFromToday(),
+        "liTagsOfIntensiveLectureOfMathFaclutyFromToday": liTagsOfIntensiveLectureOfMathFaclutyFromToday(),
+        "liTagsOfColloquiumOfMathFaclutyFromToday": liTagsOfColloquiumOfMathFaclutyFromToday(),
+        "liTagsOfMeetingOfMathFaclutyFromToday": liTagsOfMeetingOfMathFaclutyFromToday(),
+        "liTagsOfNoticeOfPhysicsFaclutyFromToday": liTagsOfNoticeOfPhysicsFaclutyFromToday(),
+        "liTagsOfEventsOfPhysicsFaclutyFromToday": liTagsOfEventsOfPhysicsFaclutyFromToday(),
     }
 
 
