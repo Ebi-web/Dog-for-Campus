@@ -2,6 +2,7 @@
 
 import re
 from bs4 import BeautifulSoup
+from bs4.element import Comment
 import requests
 from datetime import date, datetime
 
@@ -215,21 +216,52 @@ def articleTagsOfEntranceBriefingOfEarthPhysicsMajor():
     url = "http://www.gp.tohoku.ac.jp/entrance-exams/entrance-exams-briefing.html"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
-    returningArticleTags = []
     briefingArticleTags = soup.find_all("article")
-    commentPattern = re.compile("<!--.*-->", re.DOTALL)
     for briefingArticleTag in briefingArticleTags:
-        comments = re.findall(commentPattern, str(briefingArticleTag))
-        return comments
-        for comment in comments:
-            # comment = BeautifulSoup(comments, "html.parser")
-            return comment
+        for comment in briefingArticleTag(text=lambda text: isinstance(text, Comment)):
             comment.extract()
-    return returningArticleTags
+    return briefingArticleTags
+
+
+def articleTagsOfExamInfoOfEarthPhysicsMajor():
+    url = "http://www.gp.tohoku.ac.jp/entrance-exams/entrance-exams-top.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    examInfoArticleTags = soup.find_all("article")
+    for examInfoArticleTag in examInfoArticleTags:
+        for comment in examInfoArticleTag(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
+    return examInfoArticleTags
+
+
+def divTagsOfInfoOfAstronomicalMajor():
+    url = "https://www.astr.tohoku.ac.jp/index.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    infoDivTags = soup.find_all("div", {"class": "newsbx"})
+    for infoDivTag in infoDivTags:
+        for comment in infoDivTag(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
+    return infoDivTags
+
+
+def entryTagsOfExamInfoOfLifeScienceMajor():
+    url = "https://www.lifesci.tohoku.ac.jp/admission/rss.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    entryTagsExamInfo = soup.find_all("entry")
+    return entryTagsExamInfo
+
+
+def entryTagsOfInternalInfoOfLifeScienceMajor():
+    url = "https://www.lifesci.tohoku.ac.jp/oncampus/rss.html"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "html.parser")
+    entryTagsInternalInfo = soup.find_all("entry")
+    return entryTagsInternalInfo
 
 
 def main():
-    print(articleTagsOfEntranceBriefingOfEarthPhysicsMajor())
     return {
         "liTagsOfEventsOfHomePageFromToday": liTagsOfEventsOfHomePageFromToday(),
         "htmlOfNewsOfHomePage": htmlOfNewsOfHomePage(),
@@ -240,6 +272,20 @@ def main():
         "liTagsOfMeetingOfMathFaclutyFromToday": liTagsOfMeetingOfMathFaclutyFromToday(),
         "liTagsOfNoticeOfPhysicsFaclutyFromToday": liTagsOfNoticeOfPhysicsFaclutyFromToday(),
         "liTagsOfEventsOfPhysicsFaclutyFromToday": liTagsOfEventsOfPhysicsFaclutyFromToday(),
+        "liTagsOfEventsOfPhysicsFaclutyForFirstSecond": liTagsOfEventsOfPhysicsFaclutyForFirstSecond(),
+        "liTagsOfEventsOfPhysicsFaclutyForThirdFourth": liTagsOfEventsOfPhysicsFaclutyForThirdFourth(),
+        "liTagsOfEventsOfPhysicsFaclutyForGraduates": liTagsOfEventsOfPhysicsFaclutyForGraduates(),
+        "liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates": liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates(),
+        "liTagsOfImportantsOfChemistryFacluty": liTagsOfImportantsOfChemistryFacluty(),
+        "liTagsOfAdmissionsOfChemistryFacluty": liTagsOfAdmissionsOfChemistryFacluty(),
+        "ddTagsOfExternalInformationOfGeoscienceFacluty": ddTagsOfExternalInformationOfGeoscienceFacluty(),
+        "liTagsOfNewsOfEarthPhysicsMajor": liTagsOfNewsOfEarthPhysicsMajor(),
+        "liTagsOfInternalInfoOfEarthPhysicsMajor": liTagsOfInternalInfoOfEarthPhysicsMajor(),
+        "articleTagsOfEntranceBriefingOfEarthPhysicsMajor": articleTagsOfEntranceBriefingOfEarthPhysicsMajor(),
+        "articleTagsOfExamInfoOfEarthPhysicsMajor": articleTagsOfExamInfoOfEarthPhysicsMajor(),
+        "divTagsOfInfoOfAstronomicalMajor": divTagsOfInfoOfAstronomicalMajor(),
+        "entryTagsOfExamInfoOfLifeScienceMajor": entryTagsOfExamInfoOfLifeScienceMajor(),
+        "entryTagsOfInternalInfoOfLifeScienceMajor": entryTagsOfInternalInfoOfLifeScienceMajor(),
     }
 
 
