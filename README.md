@@ -21,18 +21,24 @@
 - Vue.js 3 (SPA化する予定)
 - Typescript (予定)
 - Python3.8.8
-- streamlit
+- Django
 
 ## インフラ
-- AWS Lambda (またはBeanstalk)
+- AWS Amplify
+- AWS API Gateway
+- AWS IAM
+- AWS Lambda
 - AWS ACM
 - AWS Route53
 
 ## CI/CD
-- CircleCI(予定)
+- AWS CodeDeploy(予定)
+- AWS CodePipeline(予定)
+- AWS CodeCommit(予定)
+- AWS CodeBuild(予定)
 
 ## データベース
-- Google Spreadsheet (gspread API使用)
+- AWS DynamoDB
 
 ## モジュール
 - BeautifulSoupなど
