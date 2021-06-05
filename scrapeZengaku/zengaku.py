@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
+
 def zengaku_kyomuka_li_tags():
     zengaku_kyomuka_url = "http://www2.he.tohoku.ac.jp/zengaku/zengaku_info_g.html"
     zengaku_kyomuka_res = requests.get(zengaku_kyomuka_url)
