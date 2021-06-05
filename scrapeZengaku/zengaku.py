@@ -1,35 +1,31 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-import bs4
 import requests
 
 
-def htmlOfKyomukaOfZengaku():
-    urlToKyomukaOfZengaku = (
-        "http://www2.he.tohoku.ac.jp/zengaku/zengaku_info_g.html"
-    )
-    responseFromKyomukaOfZengaku = requests.get(urlToKyomukaOfZengaku)
-    soup = BeautifulSoup(responseFromKyomukaOfZengaku.content, "html.parser")
-    return soup
+def zengaku_kyomuka_li_tags():
+    zengaku_kyomuka_url = "http://www2.he.tohoku.ac.jp/zengaku/zengaku_info_g.html"
+    zengaku_kyomuka_res = requests.get(zengaku_kyomuka_url)
+    soup = BeautifulSoup(zengaku_kyomuka_res.content, "html.parser")
+    zengaku_kyomuka_content = soup.select_one("#content_box")
+    zengaku_kyomuka_li = zengaku_kyomuka_content.select("li")
+    return zengaku_kyomuka_li
 
-
-def htmlOfAnnaiOfZengaku():
-    urlToAnnaiOfZengaku = (
-        "http://www2.he.tohoku.ac.jp/zengaku/zengaku_annai.html"
-    )
-    responseFromAnnaiOfZengaku = requests.get(urlToAnnaiOfZengaku)
-    soup = BeautifulSoup(responseFromAnnaiOfZengaku.content, "html.parser")
-    return soup
-
+def zengaku_guide_html():
+    zengaku_guide_url = "http://www2.he.tohoku.ac.jp/zengaku/zengaku_annai.html"
+    zengaku_guide_res = requests.get(zengaku_guide_url)
+    soup = BeautifulSoup(zengaku_guide_res.content, "html.parser")
+    zengaku_guide_content = soup.select_one("#content_box")
+    zengaku_guide_index = zengaku_guide_content.select_one("#page-index3")
+    return zengaku_guide_index
 
 def main():
     return {
-        "htmlOfKyomukaOfZengaku": htmlOfKyomukaOfZengaku(),
-        "htmlOfAnnaiOfZengaku": htmlOfAnnaiOfZengaku(),
+        "zengaku_kyomuka_li_tags": zengaku_kyomuka_li_tags(),
+        "zengaku_guide_html": zengaku_guide_html(),
     }
 
 
 if __name__ == "__main__":
-    main()
-    
+    print(main())
