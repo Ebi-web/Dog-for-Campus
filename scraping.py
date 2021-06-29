@@ -23,6 +23,8 @@ def htmlOfNewsOfHomePage():
     responseFromNewsOfHomePage = requests.get(urlToNewsOfHomePage)
     soup = BeautifulSoup(responseFromNewsOfHomePage.content, "html.parser")
     wholeNewsDivTag = soup.find("div", {"class": "tab-content"})
+    for comment in wholeNewsDivTag(text=lambda text: isinstance(text, Comment)):
+        comment.extract()
     return wholeNewsDivTag
 
 
@@ -44,6 +46,9 @@ def liTagsOfEventsOfHomePageFromToday():
             monthAndDay = int(monthAndDay[0:2] + monthAndDay[3:5])
             if currentMonthAndDay <= monthAndDay:
                 eventsFromTodayLiTags.append(liTag)
+    for event_li in eventsFromTodayLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventsFromTodayLiTags
 
 
@@ -53,7 +58,10 @@ def htmlOfScienceFacultyForCurrentStudents():
     soup = BeautifulSoup(responseFromThePage.content, "html.parser")
     emergencies = soup.find("div", {"id": "emg_re"})
     updatedNotices = soup.find("div", {"class": "pagebody"})
-    returningHtmls = {"emergencies": emergencies, "updateNoticies": updatedNotices}
+    returningHtmls = {"emergencies": emergencies, "updateNotices": updatedNotices}
+    for comment1, comment2 in zip(emergencies(text=lambda text: isinstance(text, Comment)), updatedNotices(text=lambda text: isinstance(text, Comment))):
+        comment1.extract()
+        comment2.extract()
     return returningHtmls
 
 
@@ -68,6 +76,9 @@ def liTagsOfSeminarsOfMathFacultyFromToday():
         dateOfSeminar = int(seminarLiTag["id"][:8])
         if currentDate <= dateOfSeminar:
             liTagsSeminarsFromToday.append(seminarLiTag)
+    for seminar_li in liTagsSeminarsFromToday:
+        for comment in seminar_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return liTagsSeminarsFromToday
 
 
@@ -82,6 +93,9 @@ def liTagsOfIntensiveLectureOfMathFaclutyFromToday():
         dateOfIntensiveLecture = int(intensiveLecturesLiTag["id"][:8])
         if currentDate <= dateOfIntensiveLecture:
             liTagsIntensiveLecturesFromToday.append(intensiveLecturesLiTag)
+    for event_li in liTagsIntensiveLecturesFromToday:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return liTagsIntensiveLecturesFromToday
 
 
@@ -96,6 +110,9 @@ def liTagsOfColloquiumOfMathFaclutyFromToday():
         dateOfColloquium = int(colloquiumLiTag["id"][:8])
         if currentDate <= dateOfColloquium:
             liTagsColloquiumFromToday.append(colloquiumLiTag)
+    for colloquium_li in liTagsColloquiumFromToday:
+        for comment in colloquium_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return liTagsColloquiumFromToday
 
 
@@ -110,6 +127,7 @@ def liTagsOfMeetingOfMathFaclutyFromToday():
         dateOfMeeting = int(meetingLiTag["id"][:8])
         if currentDate <= dateOfMeeting:
             liTagsMeetingFromToday.append(meetingLiTag)
+    # print(liTagsMeetingFromToday)                       # 空のリスト?       
     return liTagsMeetingFromToday
 
 
@@ -119,6 +137,9 @@ def liTagsOfNoticeOfPhysicsFaclutyFromToday():
     soup = BeautifulSoup(response.content, "html.parser")
     currentDate = int(getCurrentDate())
     noticeLiTags = soup.find_all("li", {"class": "info_jp clearfix"})
+    for notice_li in noticeLiTags:
+        for comment in notice_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return noticeLiTags
 
 
@@ -128,6 +149,9 @@ def liTagsOfEventsOfPhysicsFaclutyFromToday():
     soup = BeautifulSoup(response.content, "html.parser")
     currentDate = int(getCurrentDate())
     eventLiTags = soup.find_all("li", {"class": "event_jp clearfix"})
+    for event_li in eventLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventLiTags
 
 
@@ -136,6 +160,9 @@ def liTagsOfEventsOfPhysicsFaclutyForFirstSecond():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     eventLiTags = soup.find("div", {"id": "evtabs-3"}).find_all("li")
+    for event_li in eventLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventLiTags
 
 
@@ -144,6 +171,9 @@ def liTagsOfEventsOfPhysicsFaclutyForThirdFourth():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     eventLiTags = soup.find("div", {"id": "evtabs-4"}).find_all("li")
+    for event_li in eventLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventLiTags
 
 
@@ -152,6 +182,9 @@ def liTagsOfEventsOfPhysicsFaclutyForGraduates():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     eventLiTags = soup.find("div", {"id": "evtabs-5"}).find_all("li")
+    for event_li in eventLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventLiTags
 
 
@@ -160,6 +193,9 @@ def liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     eventLiTags = soup.find("div", {"id": "evtabs-2"}).find_all("li")
+    for event_li in eventLiTags:
+        for comment in event_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return eventLiTags
 
 
@@ -168,6 +204,9 @@ def liTagsOfImportantsOfChemistryFacluty():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     importantsLiTags = soup.find("div", {"class": "info_inner"}).find_all("li")
+    for important_li in importantsLiTags:
+        for comment in important_li(text=lambda text: isinstance(text, Comment)):   # important
+            comment.extract()
     return importantsLiTags
 
 
@@ -177,6 +216,9 @@ def liTagsOfAdmissionsOfChemistryFacluty():
     soup = BeautifulSoup(response.content, "html.parser")
     currentDate = int(getCurrentDate())
     admissionLiTags = soup.find("div", {"class": "admissions"}).find_all("li")
+    for admission_li in admissionLiTags:
+        for comment in admission_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return admissionLiTags
 
 
@@ -185,6 +227,9 @@ def ddTagsOfExternalInformationOfGeoscienceFacluty():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     informationLiTags = soup.find("div", {"id": "sectionInformation"}).find_all("dd")
+    for info_li in informationLiTags:
+        for comment in info_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return informationLiTags
 
 
@@ -197,6 +242,9 @@ def liTagsOfNewsOfEarthPhysicsMajor():
     for newsLiTag in newsLiTags:
         newsLiTag.find("script").extract()
         returningNewsLiTags.append(newsLiTag)
+    for return_news_li in returningNewsLiTags:
+        for comment in return_news_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return returningNewsLiTags
 
 
@@ -209,6 +257,9 @@ def liTagsOfInternalInfoOfEarthPhysicsMajor():
     for internalInfoLiTag in internalInfoLiTags:
         internalInfoLiTag.find("script").extract()
         returningInfoLiTags.append(internalInfoLiTag)
+    for return_info_li in returningInfoLiTags:
+        for comment in return_info_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return returningInfoLiTags
 
 
@@ -244,12 +295,14 @@ def divTagsOfInfoOfAstronomicalMajor():
             comment.extract()
     return infoDivTags
 
-
 def entryTagsOfExamInfoOfLifeScienceMajor():
     url = "https://www.lifesci.tohoku.ac.jp/admission/rss.html"
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     entryTagsExamInfo = soup.find_all("entry")
+    for entry_exam_tag in entryTagsExamInfo:
+        for comment in entry_exam_tag(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return entryTagsExamInfo
 
 
@@ -258,6 +311,9 @@ def entryTagsOfInternalInfoOfLifeScienceMajor():
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     entryTagsInternalInfo = soup.find_all("entry")
+    for entry_internal_tag in entryTagsInternalInfo:
+        for comment in entry_internal_tag(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return entryTagsInternalInfo
 
 
@@ -267,6 +323,9 @@ def zengaku_kyomuka_li_tags():
     soup = BeautifulSoup(zengaku_kyomuka_res.content, "html.parser")
     zengaku_kyomuka_content = soup.select_one("#content_box")
     zengaku_kyomuka_li = zengaku_kyomuka_content.select("li")
+    for zenkyo_each_li in zengaku_kyomuka_li:
+        for comment in zenkyo_each_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return zengaku_kyomuka_li
 
 
@@ -276,6 +335,8 @@ def zengaku_guide_html():
     soup = BeautifulSoup(zengaku_guide_res.content, "html.parser")
     zengaku_guide_content = soup.select_one("#content_box")
     zengaku_guide_index = zengaku_guide_content.select_one("#page-index3")
+    for comment in zengaku_guide_index(text=lambda text: isinstance(text, Comment)):
+        comment.extract()
     return zengaku_guide_index
 
 
