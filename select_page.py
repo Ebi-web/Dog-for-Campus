@@ -30,8 +30,15 @@ def page():
     content_container = st.beta_container()
 
     with content_container:
-        for site_group_name,site_name_list in site_groups.items():
-            st.write(site_group_name)
-            for site_name in site_name_list:
-                st.checkbox(site_name)
+        COLUMNS_NUM = 4
+        content_columns =st.beta_columns(COLUMNS_NUM)
+        current_index = 0
+        ROWS_NUM=3
+        for site_group_name, site_name_list in site_groups.items():
+            with content_columns[current_index//ROWS_NUM]:
+                st.write(site_group_name)
+                current_index += 1
+                for site_name in site_name_list:
+                    st.checkbox(site_name)
+        current_index=None
 
