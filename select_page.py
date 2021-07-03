@@ -39,6 +39,6 @@ def page():
                 st.write(site_group_name)
                 current_index += 1
                 for site_name in site_name_list:
-                    st.checkbox(site_name)
+                    st.session_state["sites"][site_name] = st.checkbox(site_name)
         current_index=None
 
