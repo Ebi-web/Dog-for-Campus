@@ -15,6 +15,10 @@
 - 更新検知時の通知機能
 - スクレイピング手動実行機能
 
+# 技術的なこだわり
+
+- Webページ全体ではなく8割の学生が気になるだろう情報に絞ってスクレイピングするロジックにしたことで、取得結果の加工の手間を可能な限り減らした。
+
 # 使用技術
 
 ## フロントエンド・バックエンド
@@ -28,6 +32,7 @@
 - AWS API Gateway
 - AWS IAM
 - AWS Lambda
+- AWS S3
 - AWS ACM
 - AWS Route53
 
@@ -38,7 +43,7 @@
 - AWS CodeBuild(予定)
 
 ## データベース
-- AWS DynamoDB
+- AWS RDS
 
 ## モジュール
 - BeautifulSoupなど

@@ -1,40 +1,44 @@
 import streamlit as st
 
-sites = {
-    "東北大学ホームページ　ニュース": 0,
-    "東北大学ホームページ　イベント": 0,
-    "東北大学全学教育サイト　教務課からのお知らせ": 1,
-    "東北大学全学教育サイト　授業案内": 1,
-    "理学部・理学研究科サイト　在学生向け情報": 2,
-    "数学科・数学専攻サイト　セミナー": 3,
-    "数学科・数学専攻サイト　集中講義": 3,
-    "数学科・数学専攻サイト　談話会": 3,
-    "数学科・数学専攻サイト　研究集会": 3,
-    "物理学科・物理学専攻サイト　お知らせ": 4,
-    "物理学科・物理学専攻サイト　イベント": 4,
-    "物理学科・物理学専攻サイト　イベント紹介（学部1・2年生）": 4,
-    "物理学科・物理学専攻サイト　イベント紹介（学部3・4年生）": 4,
-    "物理学科・物理学専攻サイト　イベント紹介（大学院生）": 4,
-    "物理学科・物理学専攻サイト　大学院受験生（大学院受験生）": 4,
-    "化学科・化学専攻サイト　重要なお知らせ": 5,
-    "化学科・化学専攻サイト　入試関連情報": 5,
-    "地球科学科・地学専攻サイト　インフォメーション": 6,
-    "理学研究科・地球物理学専攻サイト　お知らせ　ニュース": 7,
-    "理学研究科・地球物理学専攻サイト　お知らせ　専攻内情報": 7,
-    "理学研究科・地球物理学専攻サイト　大学院入試説明会": 7,
-    "理学研究科・地球物理学専攻サイト　大学院入試案内": 7,
-    "天文学教室サイト　お知らせ": 8,
-    "生命科学研究科サイト　最新情報": 9,
-    "生命科学研究科サイト　入試情報": 9,
-}
-containers = [st.beta_container() for i in range(10)]
-cols = st.beta_columns(3)
-is_scraping_dict = {}
 
+def page():
 
+    site_groups = {
+        "東北大学ホームページ": ["ニュース", "イベント(東北大学ホームページ)"],
+        "東北大学全学教育サイト": ["教務課からのお知らせ", "授業案内"],
+        "理学部・理学研究科サイト": ["在学生向け情報"],
+        "数学科・数学専攻サイト": ["セミナー", "集中講義", "談話会", "研究集会"],
+        "物理学科・物理学専攻サイト": [
+            "お知らせ(物理学科・物理学専攻)",
+            "イベント(物理学科・物理学専攻)",
+            "イベント紹介(学部1&2年生)",
+            "イベント紹介(学部3&4年生)",
+            "イベント紹介(大学院生)",
+            "イベント紹介(大学院受験生)",
+        ],
+        "理学研究科・地球物理学専攻サイト": ["お知らせ(ニュース)", "お知らせ(専攻内情報)", "大学院入試説明会", "大学院入試案内"],
+        "地球科学科・地学専攻サイト": ["インフォメーション"],
+        "化学科・化学専攻サイト": ["重要なお知らせ", "入試関連情報"],
+        "天文学教室サイト": ["お知らせ(天文学教室)"],
+        "生命科学研究科サイト": ["最新情報", "入試情報"],
+    }
 
-def page1():
-    st.title("対象サイトの選択")
-    for i, (site, group) in enumerate(sites.items()):
-        is_scraping_dict[site]=st.checkbox(site)
-    
+    title_container = st.beta_container()
+    title_container.title("データ取得対象サイトの選択")
+    title_container = None
+
+    content_container = st.beta_container()
+
+    with content_container:
+        COLUMNS_NUM = 4
+        content_columns =st.beta_columns(COLUMNS_NUM)
+        current_index = 0
+        ROWS_NUM=3
+        for site_group_name, site_name_list in site_groups.items():
+            with content_columns[current_index//ROWS_NUM]:
+                st.write(site_group_name)
+                current_index += 1
+                for site_name in site_name_list:
+                    st.session_state["sites"][site_name] = st.checkbox(site_name)
+        current_index=None
+
