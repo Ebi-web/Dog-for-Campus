@@ -36,9 +36,9 @@ def page():
     st.title("対象サイトの情報更新")
     is_updated = st.button('更新を実行')
     if is_updated:
-        for (key, bool) in st.session_state["sites"].items():
-            if bool:
-                result_dict[key] = sc.main()[corr_dict[key]]
+        for (key, is_scraping_enabled) in st.session_state["sites"].items():
+            if is_scraping_enabled:
+                result_dict[key] = sc.main()[corr_dict[key]]()
         if result_dict == {}:
             st.warning('！対象サイトが選択されていません')
         else:
