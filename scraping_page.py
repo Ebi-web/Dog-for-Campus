@@ -1,6 +1,5 @@
 import streamlit as st
 import scraping as sc
-import select_page as sp
 
 corr_dict = {
     "イベント(東北大学ホームページ)": "liTagsOfEventsOfHomePageFromToday",
@@ -31,16 +30,16 @@ corr_dict = {
 }
 
 def page():
-    result_dict = {}
-
     st.title("対象サイトの情報更新")
+
+    result_dict = {}
     is_updated = st.button('更新を実行')
     if is_updated:
-        for (key, is_scraping_enabled) in st.session_state["sites"].items():
+        for (site_name, is_scraping_enabled) in st.session_state["sites"].items():
             if is_scraping_enabled:
-                result_dict[key] = sc.main()[corr_dict[key]]()
+                result_dict[site_name] = sc.main()[corr_dict[site_name]]()
         if result_dict == {}:
-            st.warning('！対象サイトが選択されていません')
+            st.warning('対象サイトが選択されていません')
         else:
             st.write("更新を実行しました")
     return result_dict

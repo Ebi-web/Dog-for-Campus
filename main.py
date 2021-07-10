@@ -1,4 +1,3 @@
-from soupsieve import select
 import streamlit as st
 st.set_page_config(layout="wide")
 
@@ -15,9 +14,9 @@ pages = {
 
 
 
-if not "news" in st.session_state:
+if "news" not in st.session_state:
     st.session_state["news"] = {}
-if not "sites" in st.session_state:
+if "sites" not in st.session_state:
     st.session_state["sites"] = {}
 
 st.sidebar.title('ページの一覧')

@@ -37,10 +37,9 @@ def page():
         for site_group_name, site_name_list in site_groups.items():
             with content_columns[current_index//ROWS_NUM]:
                 st.markdown("**"+site_group_name+"**")
-                st.checkbox(site_name)
-                st.write("")
                 current_index += 1
                 for site_name in site_name_list:
+                    st.write("")
                     st.session_state["sites"][site_name] = st.checkbox(site_name)
         current_index=None
 
