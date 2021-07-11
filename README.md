@@ -30,13 +30,14 @@
 - Streamlit 0.84.0
 
 ## インフラ
+- Streamlit Sharing
 - AWS Amplify(予定)
-- AWS API Gateway
-- AWS IAM
-- AWS EC2 (もしくはLambda)
+- AWS API Gateway(予定)
+- AWS IAM(予定)
+- AWS EC2 (もしくはLambda)(予定)
 - AWS S3(予定)
-- AWS ACM
-- AWS Route53
+- AWS ACM(予定)
+- AWS Route53(予定)
 
 ## CI/CD
 - AWS CodeDeploy(予定)
