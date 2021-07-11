@@ -126,8 +126,7 @@ def liTagsOfMeetingOfMathFaclutyFromToday():
     for meetingLiTag in meetingLiTags:
         dateOfMeeting = int(meetingLiTag["id"][:8])
         if currentDate <= dateOfMeeting:
-            liTagsMeetingFromToday.append(meetingLiTag)
-    # print(liTagsMeetingFromToday)                       # 空のリスト?       
+            liTagsMeetingFromToday.append(meetingLiTag)    
     return liTagsMeetingFromToday
 
 
