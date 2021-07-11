@@ -66,13 +66,15 @@ def page():
         content_columns = st.beta_columns(COLUMNS_NUM)
         current_index = 0
         ROWS_NUM = 3
+        st.session_state["sites"] = {}
+        st.session_state["scraping_result_dict"] = {}
         for site_group_name, site_name_list in site_groups.items():
             with content_columns[current_index // ROWS_NUM]:
                 st.markdown("**" + site_group_name + "**")
                 current_index += 1
                 for site_name in site_name_list:
                     st.write("")
-                    st.session_state["sites"][site_name]=st.checkbox(label=site_name)
+                    st.session_state["sites"][site_name] = st.checkbox(label=site_name)
         current_index = None
 
     if is_button_pushed:
