@@ -31,8 +31,9 @@
 
 ## インフラ
 - AWS Amplify(予定)
+- AWS API Gateway
 - AWS IAM
-- AWS EC2
+- AWS EC2 (もしくはLambda)
 - AWS S3(予定)
 - AWS ACM
 - AWS Route53
