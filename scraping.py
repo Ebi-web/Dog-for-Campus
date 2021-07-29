@@ -126,8 +126,7 @@ def liTagsOfMeetingOfMathFaclutyFromToday():
     for meetingLiTag in meetingLiTags:
         dateOfMeeting = int(meetingLiTag["id"][:8])
         if currentDate <= dateOfMeeting:
-            liTagsMeetingFromToday.append(meetingLiTag)
-    # print(liTagsMeetingFromToday)                       # 空のリスト?       
+            liTagsMeetingFromToday.append(meetingLiTag)    
     return liTagsMeetingFromToday
 
 
@@ -342,31 +341,31 @@ def zengaku_guide_html():
 
 def main():
     return {
-        "liTagsOfEventsOfHomePageFromToday": liTagsOfEventsOfHomePageFromToday(),
-        "htmlOfNewsOfHomePage": htmlOfNewsOfHomePage(),
-        "htmlOfScienceFacultyForCurrentStudents": htmlOfScienceFacultyForCurrentStudents(),
-        "liTagsOfSeminarsOfMathFacultyFromToday": liTagsOfSeminarsOfMathFacultyFromToday(),
-        "liTagsOfIntensiveLectureOfMathFaclutyFromToday": liTagsOfIntensiveLectureOfMathFaclutyFromToday(),
-        "liTagsOfColloquiumOfMathFaclutyFromToday": liTagsOfColloquiumOfMathFaclutyFromToday(),
-        "liTagsOfMeetingOfMathFaclutyFromToday": liTagsOfMeetingOfMathFaclutyFromToday(),
-        "liTagsOfNoticeOfPhysicsFaclutyFromToday": liTagsOfNoticeOfPhysicsFaclutyFromToday(),
-        "liTagsOfEventsOfPhysicsFaclutyFromToday": liTagsOfEventsOfPhysicsFaclutyFromToday(),
-        "liTagsOfEventsOfPhysicsFaclutyForFirstSecond": liTagsOfEventsOfPhysicsFaclutyForFirstSecond(),
-        "liTagsOfEventsOfPhysicsFaclutyForThirdFourth": liTagsOfEventsOfPhysicsFaclutyForThirdFourth(),
-        "liTagsOfEventsOfPhysicsFaclutyForGraduates": liTagsOfEventsOfPhysicsFaclutyForGraduates(),
-        "liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates": liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates(),
-        "liTagsOfImportantsOfChemistryFacluty": liTagsOfImportantsOfChemistryFacluty(),
-        "liTagsOfAdmissionsOfChemistryFacluty": liTagsOfAdmissionsOfChemistryFacluty(),
-        "ddTagsOfExternalInformationOfGeoscienceFacluty": ddTagsOfExternalInformationOfGeoscienceFacluty(),
-        "liTagsOfNewsOfEarthPhysicsMajor": liTagsOfNewsOfEarthPhysicsMajor(),
-        "liTagsOfInternalInfoOfEarthPhysicsMajor": liTagsOfInternalInfoOfEarthPhysicsMajor(),
-        "articleTagsOfEntranceBriefingOfEarthPhysicsMajor": articleTagsOfEntranceBriefingOfEarthPhysicsMajor(),
-        "articleTagsOfExamInfoOfEarthPhysicsMajor": articleTagsOfExamInfoOfEarthPhysicsMajor(),
-        "divTagsOfInfoOfAstronomicalMajor": divTagsOfInfoOfAstronomicalMajor(),
-        "entryTagsOfExamInfoOfLifeScienceMajor": entryTagsOfExamInfoOfLifeScienceMajor(),
-        "entryTagsOfInternalInfoOfLifeScienceMajor": entryTagsOfInternalInfoOfLifeScienceMajor(),
-        "zengaku_kyomuka_li_tags": zengaku_kyomuka_li_tags(),
-        "zengaku_guide_html": zengaku_guide_html(),
+        "liTagsOfEventsOfHomePageFromToday": liTagsOfEventsOfHomePageFromToday,
+        "htmlOfNewsOfHomePage": htmlOfNewsOfHomePage,
+        "htmlOfScienceFacultyForCurrentStudents": htmlOfScienceFacultyForCurrentStudents,
+        "liTagsOfSeminarsOfMathFacultyFromToday": liTagsOfSeminarsOfMathFacultyFromToday,
+        "liTagsOfIntensiveLectureOfMathFaclutyFromToday": liTagsOfIntensiveLectureOfMathFaclutyFromToday,
+        "liTagsOfColloquiumOfMathFaclutyFromToday": liTagsOfColloquiumOfMathFaclutyFromToday,
+        "liTagsOfMeetingOfMathFaclutyFromToday": liTagsOfMeetingOfMathFaclutyFromToday,
+        "liTagsOfNoticeOfPhysicsFaclutyFromToday": liTagsOfNoticeOfPhysicsFaclutyFromToday,
+        "liTagsOfEventsOfPhysicsFaclutyFromToday": liTagsOfEventsOfPhysicsFaclutyFromToday,
+        "liTagsOfEventsOfPhysicsFaclutyForFirstSecond": liTagsOfEventsOfPhysicsFaclutyForFirstSecond,
+        "liTagsOfEventsOfPhysicsFaclutyForThirdFourth": liTagsOfEventsOfPhysicsFaclutyForThirdFourth,
+        "liTagsOfEventsOfPhysicsFaclutyForGraduates": liTagsOfEventsOfPhysicsFaclutyForGraduates,
+        "liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates": liTagsOfEventsOfPhysicsFaclutyForGraduateCandidates,
+        "liTagsOfImportantsOfChemistryFacluty": liTagsOfImportantsOfChemistryFacluty,
+        "liTagsOfAdmissionsOfChemistryFacluty": liTagsOfAdmissionsOfChemistryFacluty,
+        "ddTagsOfExternalInformationOfGeoscienceFacluty": ddTagsOfExternalInformationOfGeoscienceFacluty,
+        "liTagsOfNewsOfEarthPhysicsMajor": liTagsOfNewsOfEarthPhysicsMajor,
+        "liTagsOfInternalInfoOfEarthPhysicsMajor": liTagsOfInternalInfoOfEarthPhysicsMajor,
+        "articleTagsOfEntranceBriefingOfEarthPhysicsMajor": articleTagsOfEntranceBriefingOfEarthPhysicsMajor,
+        "articleTagsOfExamInfoOfEarthPhysicsMajor": articleTagsOfExamInfoOfEarthPhysicsMajor,
+        "divTagsOfInfoOfAstronomicalMajor": divTagsOfInfoOfAstronomicalMajor,
+        "entryTagsOfExamInfoOfLifeScienceMajor": entryTagsOfExamInfoOfLifeScienceMajor,
+        "entryTagsOfInternalInfoOfLifeScienceMajor": entryTagsOfInternalInfoOfLifeScienceMajor,
+        "zengaku_kyomuka_li_tags": zengaku_kyomuka_li_tags,
+        "zengaku_guide_html": zengaku_guide_html,
     }
 
 
