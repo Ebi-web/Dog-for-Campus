@@ -46,6 +46,6 @@ def page():
                                 ex.markdown(">" + n.text)
                     except:
                         ex.markdown(">" + n.text)
-                        print("!")
+                        print("!", end="")
             else:
                 print("new type", form)
