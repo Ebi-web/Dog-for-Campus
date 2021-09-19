@@ -1,13 +1,10 @@
 import streamlit as st
-import configparser
 import boto3
 
 
 class UserTable:
     def __init__(self):
-        config = configparser.ConfigParser()
-        config.read("./config/config.ini")
-        dynamoDB_config = config["dynamoDB_config"]
+        dynamoDB_config = st.secrets["dynamoDB_config"]
         
         session = boto3.session.Session(
             region_name = dynamoDB_config["region_name"],

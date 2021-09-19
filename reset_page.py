@@ -2,13 +2,12 @@ import streamlit as st
 import json
 import requests
 import configparser
-from sign_up_in import get_proxy
 
 
-def reset(uri, email, config):
+def reset(uri, email):
     headers = {"Content-type": "application/json"}
     data = json.dumps({"requestType": "PASSWORD_RESET", "email": email})
-    proxies, verify = get_proxy(config)
+    proxies, verify = None, True
 
     result = requests.post(url=uri,
                            headers=headers,
@@ -31,7 +30,7 @@ def page():
     email = st.text_input("再設定用メールアドレス")
     send_button = st.button("上記メールアドレスへ再設定用リンクを送信")
     if send_button:
-        res = reset(uri, email, config)
+        res = reset(uri, email)
         if "error" in res:
             error = res["error"]["message"]
             if error == "EMAIL_NOT_FOUND":

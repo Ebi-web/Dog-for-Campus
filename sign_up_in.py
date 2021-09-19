@@ -1,27 +1,14 @@
 import streamlit as st
 import json
 import requests
-import configparser
 from select_page import select
 from dynamoDB import UserTable
 
-def get_proxy(config):
-    verify = True
-    proxies = None
 
-    if config["proxy"].getboolean("proxy"):
-        proxies = {
-            "http": config["proxy"]["http"],
-            "https": config["proxy"]["https"]
-        }
-        verify = False
-
-    return proxies, verify
-
-def sign_up_or_in(uri, email, password, config):
+def sign_up_or_in(uri, email, password):
     headers = {"Content-type": "application/json"}
     data = json.dumps({"email": email, "password": password, "returnSecureToken": True})
-    proxies, verify = get_proxy(config)
+    proxies, verify = None, True
 
     result = requests.post(url=uri,
                            headers=headers,
@@ -31,9 +18,7 @@ def sign_up_or_in(uri, email, password, config):
     return result.json()
 
 def page(action):
-    config = configparser.ConfigParser()
-    config.read("./config/config.ini")
-    api_key = config["firebase_config"]["api_key"]
+    api_key = "AIzaSyBT1i08BZdSTu5-plDvilnFaWqh73NIU9k"
 
     if action == "up":
         title = "新規ユーザー登録"
@@ -58,7 +43,7 @@ def page(action):
         password2 = password
     def sign_in():
         if password == password2:
-            user_info = sign_up_or_in(uri, email, password, config)
+            user_info = sign_up_or_in(uri, email, password)
             if "error" not in user_info.keys():
                 st.session_state["email"] = email
                 st.session_state["name"] = email.split("@")[0]
