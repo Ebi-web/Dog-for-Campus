@@ -1,7 +1,6 @@
 import streamlit as st
 import json
 import requests
-import configparser
 
 
 def reset(uri, email):
@@ -22,9 +21,7 @@ def page():
     title_container.title("パスワードの再設定")
     title_container = None
 
-    config = configparser.ConfigParser()
-    config.read("./config/config.ini")
-    api_key = config["firebase_config"]["api_key"]
+    api_key = st.secrets["firebase_config"]
     uri = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={api_key}"
 
     email = st.text_input("再設定用メールアドレス")

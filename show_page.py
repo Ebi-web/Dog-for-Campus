@@ -31,7 +31,7 @@ def page():
             elif form in (list, bs4.element.ResultSet, dict):
                 if form == dict:
                     news = news.values()
-                for i,n in enumerate(news):
+                for n in news:
                     try:
                         try:
                             date_text = re.search(r"[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}", n.text).group()
