@@ -101,7 +101,6 @@ def page():
     title_container = st.beta_container()
     title_container.title("対象サイトの選択/サイト内容の取得")
     is_button_pushed = st.button("サイト内容の取得を実行")
-    title_container = None
 
     flash_info_container = st.beta_container()
 
@@ -117,4 +116,4 @@ def page():
             if st.session_state["scraping_result_dict"] == {}:
                 st.warning("対象サイトを選択してください")
             else:
-                st.info("更新を実行しました。取得結果を確認してください。")
+                st.info("左側のメニューから取得結果一覧を押してください")
