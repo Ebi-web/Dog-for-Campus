@@ -1,9 +1,8 @@
 import streamlit as st
 import scraping as sc
-import show_page as page3
+from dynamoDB import UserTable
 
-
-def page():
+def select():
     site_groups = {
         "東北大学ホームページ": ["ニュース", "イベント(東北大学ホームページ)"],
         "東北大学全学教育サイト": ["教務課からのお知らせ", "授業案内"],
@@ -24,6 +23,53 @@ def page():
         "生命科学研究科サイト": ["最新情報", "入試情報"],
     }
 
+    sites = 0
+    for site_group in site_groups.values():
+        sites += len(site_group)
+
+    content_container = st.beta_container()
+    with content_container:
+        COLUMNS_NUM = 4
+        content_columns = st.beta_columns(COLUMNS_NUM)
+        current_index = 0
+        ROWS_NUM = 3
+        if st.session_state["is_signed_in"]:
+            user_table = UserTable()
+            site_index = 0
+            new_binarry_num = 0
+            try:
+                registerd_binarry_num = user_table.get()["RegisteredBinaryNum"]
+            except:
+                registerd_binarry_num = 0
+            for site_group_name, site_name_list in site_groups.items():
+                with content_columns[current_index // ROWS_NUM]:
+                    st.markdown("**" + site_group_name + "**")
+                    current_index += 1
+                    for site_name in site_name_list:
+                        if str(registerd_binarry_num)[site_index:site_index+1] == "1":
+                            registered_value = True
+                        else:
+                            registered_value = False
+                        st.write("")
+                        st.session_state["sites"][site_name] = st.checkbox(value=registered_value, label=site_name)
+                        if st.session_state["sites"][site_name]:
+                            new_binarry_num += 10**(site_index)
+                        site_index += 1
+            return new_binarry_num, sites
+
+        else:
+            st.session_state["sites"] = {}
+            st.session_state["scraping_result_dict"] = {}
+            for site_group_name, site_name_list in site_groups.items():
+                with content_columns[current_index // ROWS_NUM]:
+                    st.markdown("**" + site_group_name + "**")
+                    current_index += 1
+                    for site_name in site_name_list:
+                        st.write("")
+                        st.session_state["sites"][site_name] = st.checkbox(label=site_name)
+        current_index = None
+
+def page():
     target_to_function = {
         "イベント(東北大学ホームページ)": "liTagsOfEventsOfHomePageFromToday",
         "ニュース": "htmlOfNewsOfHomePage",
@@ -58,23 +104,7 @@ def page():
 
     flash_info_container = st.beta_container()
 
-    content_container = st.beta_container()
-
-    with content_container:
-        COLUMNS_NUM = 4
-        content_columns = st.beta_columns(COLUMNS_NUM)
-        current_index = 0
-        ROWS_NUM = 3
-        st.session_state["sites"] = {}
-        st.session_state["scraping_result_dict"] = {}
-        for site_group_name, site_name_list in site_groups.items():
-            with content_columns[current_index // ROWS_NUM]:
-                st.markdown("**" + site_group_name + "**")
-                current_index += 1
-                for site_name in site_name_list:
-                    st.write("")
-                    st.session_state["sites"][site_name] = st.checkbox(label=site_name)
-        current_index = None
+    select()
 
     if is_button_pushed:
         for (site_name, is_enabled) in st.session_state["sites"].items():
