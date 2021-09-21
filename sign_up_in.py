@@ -18,7 +18,7 @@ def sign_up_or_in(uri, email, password):
     return result.json()
 
 def page(action):
-    api_key = "AIzaSyBT1i08BZdSTu5-plDvilnFaWqh73NIU9k"
+    api_key = st.secrets["firebase_config"]["api_key"]
 
     if action == "up":
         title = "新規ユーザー登録"
