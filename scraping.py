@@ -23,9 +23,11 @@ def htmlOfNewsOfHomePage():
     responseFromNewsOfHomePage = requests.get(urlToNewsOfHomePage)
     soup = BeautifulSoup(responseFromNewsOfHomePage.content, "html.parser")
     wholeNewsDivTag = soup.find("div", {"class": "tab-content"})
-    for comment in wholeNewsDivTag(text=lambda text: isinstance(text, Comment)):
-        comment.extract()
-    return wholeNewsDivTag
+    liTags=wholeNewsDivTag.find_all("li")
+    for home_li in liTags:
+        for comment in home_li(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
+    return liTags
 
 
 def liTagsOfEventsOfHomePageFromToday():
@@ -57,11 +59,13 @@ def htmlOfScienceFacultyForCurrentStudents():
     responseFromThePage = requests.get(url)
     soup = BeautifulSoup(responseFromThePage.content, "html.parser")
     emergencies = soup.find("div", {"id": "emg_re"})
-    updatedNotices = soup.find("div", {"class": "pagebody"})
-    returningHtmls = {"emergencies": emergencies, "updateNotices": updatedNotices}
-    for comment1, comment2 in zip(emergencies(text=lambda text: isinstance(text, Comment)), updatedNotices(text=lambda text: isinstance(text, Comment))):
-        comment1.extract()
-        comment2.extract()
+    updatedNotices = soup.find("div", {"class": "pagebody"}).find_all("li")
+    returningHtmls = [emergencies] + updatedNotices
+    for comment in emergencies(text=lambda text: isinstance(text, Comment)):
+        comment.extract()
+    for updatedNotice in updatedNotices:
+        for comment in updatedNotice(text=lambda text: isinstance(text, Comment)):
+            comment.extract()
     return returningHtmls
 
 
@@ -90,7 +94,10 @@ def liTagsOfIntensiveLectureOfMathFaclutyFromToday():
     intensiveLecturesLiTags = soup.find_all("li", {"id": True})
     liTagsIntensiveLecturesFromToday = []
     for intensiveLecturesLiTag in intensiveLecturesLiTags:
-        dateOfIntensiveLecture = int(intensiveLecturesLiTag["id"][:8])
+        try:
+            dateOfIntensiveLecture = int(intensiveLecturesLiTag["id"][:8])
+        except:
+            dateOfIntensiveLecture = int(intensiveLecturesLiTag["id"][:6] + "01")
         if currentDate <= dateOfIntensiveLecture:
             liTagsIntensiveLecturesFromToday.append(intensiveLecturesLiTag)
     for event_li in liTagsIntensiveLecturesFromToday:

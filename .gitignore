@@ -3,3 +3,5 @@ scrapeZengaku/.vscode/settings.json
 test.py
 settings.json
 __pycache__
+texput.log
+.streamlit
