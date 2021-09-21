@@ -1,4 +1,3 @@
-from requests.sessions import session
 import streamlit as st
 
 st.set_page_config(layout="wide")
@@ -8,7 +7,7 @@ import select_page as page2
 import show_page as page3
 
 pages = {
-    "ヘルプ":page1.page,
+    "ヘルプ": page1.page,
     "対象サイトの選択/サイト内容の取得": page2.page,
     "取得結果一覧": page3.page,
 }
