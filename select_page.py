@@ -1,5 +1,4 @@
 import streamlit as st
-import scraping as sc
 from dynamoDB import UserTable
 
 def select():
@@ -103,15 +102,13 @@ def page():
     is_button_pushed = st.button("サイト内容の取得を実行")
 
     flash_info_container = st.beta_container()
-
     select()
 
+    user_table = UserTable(table_index=0)
     if is_button_pushed:
         for (site_name, is_enabled) in st.session_state["sites"].items():
             if is_enabled:
-                st.session_state["scraping_result_dict"][site_name] = sc.main()[
-                    target_to_function[site_name]
-                ]()
+                st.session_state["scraping_result_dict"][site_name] = user_table.query(target_to_function[site_name])
         with flash_info_container:
             if st.session_state["scraping_result_dict"] == {}:
                 st.warning("対象サイトを選択してください")
