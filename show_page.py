@@ -27,25 +27,28 @@ def page():
             ex = st.beta_expander(key)
             form = type(news)
             if form == bs4.element.Tag:
-                ex.markdown(">" + news.text)
+                print(type(news), "!")
+                news_text = bs4.BeautifulSoup(news, "html5lib").text
+                ex.markdown(">" + news_text)
             elif form in (list, bs4.element.ResultSet, dict):
                 if form == dict:
                     news = news.values()
                 for n in news:
+                    n_text = bs4.BeautifulSoup(n, "html5lib").text
                     try:
                         try:
-                            date_text = re.search(r"[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}", n.text).group()
+                            date_text = re.search(r"[0-9]{4}.[0-9]{1,2}.[0-9]{1,2}", n_text).group()
                         except:
-                            date_text = re.search(r"[0-9]{2}.[0-9]{2}", n.text).group()
+                            date_text = re.search(r"[0-9]{2}.[0-9]{2}", n_text).group()
                             date_text = str(today.year) + "." + date_text
                         try:
                             date = dt.datetime.strptime(date_text, "%Y.%m.%d")
                         except:
                             date = dt.datetime.strptime(date_text, "%Y/%m/%d")
                         if today - r < date:
-                                ex.markdown(">" + n.text)
+                                ex.markdown(">" + n_text)
                     except:
-                        ex.markdown(">" + n.text)
+                        ex.markdown(">" + n_text)
                         print("!", end="")
             else:
                 print("new type", form)
