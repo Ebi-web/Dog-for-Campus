@@ -5,7 +5,7 @@ from dynamoDB import UserTable
 
 
 def page():
-    title_container = st.beta_container()
+    title_container = st.container()
     title_container.title("対象サイトの登録")
     title_container = None
     new_binarry_num, sites = select()
