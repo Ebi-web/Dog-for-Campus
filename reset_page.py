@@ -21,7 +21,7 @@ def page():
     title_container.title("パスワードの再設定")
     title_container = None
 
-    api_key = st.secrets["firebase_config"]
+    api_key = st.secrets["firebase_config"]["api_key"]
     uri = f"https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={api_key}"
 
     email = st.text_input("再設定用メールアドレス")
