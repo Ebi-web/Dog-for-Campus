@@ -14,7 +14,7 @@ def margin(num):
         st.write("")
 def header(is_signed_in, header_dict):
     COLUMNS_NUM = 3
-    columns = st.beta_columns(COLUMNS_NUM)
+    columns = st.columns(COLUMNS_NUM)
     with columns[0]:
         st.subheader(f"ようこそ、{st.session_state['name']}さん")
     if is_signed_in:

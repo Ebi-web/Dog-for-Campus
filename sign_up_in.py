@@ -90,7 +90,7 @@ def page(action):
             st.write("")
         st.session_state["page"] = 1
         st.session_state["counter"] += 1
-        title_container = st.beta_container()
+        title_container = st.container()
         title_container.title("対象サイトの登録")
         title_container = None
         new_binarry_num, sites = select()
@@ -113,7 +113,7 @@ def page(action):
     for i in range(ROW):
         st.write("")
     COLUMNS_NUM = 3
-    columns = st.beta_columns(COLUMNS_NUM)
+    columns = st.columns(COLUMNS_NUM)
     with columns[0]:
         st.write(sign)
     with columns[1]:
