@@ -18,7 +18,7 @@ class UserTable:
         self.table = dynamodb.Table(self.table_name)
     def get(self):
         response = self.table.get_item(Key={"Mail": st.session_state["email"]})
-        if response['ResponseMetadata']['HTTPStatusCode'] is not 200:
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             print(response)
             st.error("登録情報の取得に失敗しました")
         return response["Item"]
@@ -27,7 +27,7 @@ class UserTable:
         response = self.table.put_item(
             Item = item
         )
-        if response['ResponseMetadata']['HTTPStatusCode'] is not 200:
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             print(response)
             st.error("登録に失敗しました")
         else:
@@ -40,7 +40,7 @@ class UserTable:
             UpdateExpression="set RegisteredBinaryNum=:b",
             ExpressionAttributeValues={":b": item["RegisteredBinaryNum"]}
             )
-        if response['ResponseMetadata']['HTTPStatusCode'] is not 200:
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             print(response)
             st.error("登録に失敗しました")
         else:
@@ -51,7 +51,7 @@ class UserTable:
         response = self.table.query(
             KeyConditionExpression = Key("scraping_function_name").eq(req_name)
         )
-        if response['ResponseMetadata']['HTTPStatusCode'] is not 200:
+        if response['ResponseMetadata']['HTTPStatusCode'] != 200:
             print(response)
             st.error("結果の取得に失敗しました")
         return response["Items"][0]["result"]
