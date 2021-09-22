@@ -101,6 +101,7 @@ def page():
     title_container.title("対象サイトの選択/サイト内容の取得")
     is_button_pushed = st.button("サイト内容の取得を実行")
 
+
     flash_info_container = st.container()
     select()
 
