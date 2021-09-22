@@ -1,9 +1,9 @@
 import streamlit as st
 import boto3
-
+from boto3.dynamodb.conditions import Key
 
 class UserTable:
-    def __init__(self):
+    def __init__(self, table_index=1):
         dynamoDB_config = st.secrets["dynamoDB_config"]
         
         session = boto3.session.Session(
@@ -13,7 +13,8 @@ class UserTable:
         )
         dynamodb = session.resource('dynamodb')
 
-        self.table_name = "User"
+        tables = ["ScrapingResults", "User"]
+        self.table_name = tables[table_index]
         self.table = dynamodb.Table(self.table_name)
     def get(self):
         response = self.table.get_item(Key={"Mail": st.session_state["email"]})
@@ -45,3 +46,12 @@ class UserTable:
         else:
             st.success("登録が完了しました")
         return
+
+    def query(self, req_name):
+        response = self.table.query(
+            KeyConditionExpression = Key("scraping_function_name").eq(req_name)
+        )
+        if response['ResponseMetadata']['HTTPStatusCode'] is not 200:
+            print(response)
+            st.error("結果の取得に失敗しました")
+        return response["Items"][0]["result"]
