@@ -29,6 +29,7 @@
 - Streamlit 0.88.0
 - Vue.js 3.x(予定)
 - Nuxt.js(予定)
+- Golang(予定)
 - Typescript (予定)
 
 ## インフラ
@@ -39,9 +40,11 @@
 - AWS EventBridge
 - AWS CloudWatch
 - AWS Amplify(予定)
+- AWS Cognito(予定)
 - AWS API Gateway(予定)
 - AWS ACM(予定)
 - AWS Route53(予定)
+- Terraform(予定)
 
 ## CI/CD
 - AWS CodeDeploy(予定)
