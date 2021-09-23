@@ -17,7 +17,7 @@ def reset(uri, email):
 
 
 def page():
-    title_container = st.container()
+    title_container = st.beta_container()
     title_container.title("パスワードの再設定")
     title_container = None
 
