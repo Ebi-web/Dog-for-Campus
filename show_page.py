@@ -24,7 +24,7 @@ def page():
         st.warning("サイト内容の取得を再実行してください")
     else:
         for (key, news) in st.session_state["scraping_result_dict"].items():
-            ex = st.beta_expander(key)
+            ex = st.expander(key)
             form = type(news)
             if form == bs4.element.Tag:
                 print(type(news), "!")
