@@ -7,5 +7,5 @@ dependencies:
   - python
   - boto3
   - html5lib
-#  - pip:
-#    - streamlit==0.89.0
+  - pip:
+    - streamlit==0.89.0
