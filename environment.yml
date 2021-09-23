@@ -6,6 +6,6 @@ dependencies:
   - pip=21.0.1
   - python=3.8.8
   - boto3=1.18.21
-  - html5lib=1.16
+  - html5lib=1.1
   - pip:
     - streamlit==0.89.0
