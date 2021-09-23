@@ -26,10 +26,10 @@ def select():
     for site_group in site_groups.values():
         sites += len(site_group)
 
-    content_container = st.container()
+    content_container = st.beta_container()
     with content_container:
         COLUMNS_NUM = 4
-        content_columns = st.columns(COLUMNS_NUM)
+        content_columns = st.beta_columns(COLUMNS_NUM)
         current_index = 0
         ROWS_NUM = 3
         if st.session_state["is_signed_in"]:
@@ -97,12 +97,12 @@ def page():
         "授業案内": "zengaku_guide_html",
     }
 
-    title_container = st.container()
+    title_container = st.beta_container()
     title_container.title("対象サイトの選択/サイト内容の取得")
     is_button_pushed = st.button("サイト内容の取得を実行")
 
 
-    flash_info_container = st.container()
+    flash_info_container = st.beta_container()
     select()
 
     user_table = UserTable(table_index=0)
