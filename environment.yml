@@ -8,4 +8,4 @@ dependencies:
   - boto3=1.18.21
   - html5lib=1.1
   - pip:
-    - streamlit==stable
+    - streamlit==0.88.0
